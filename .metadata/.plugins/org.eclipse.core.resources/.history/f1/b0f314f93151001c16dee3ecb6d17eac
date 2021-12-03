@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+   <h:head>
+      <title>Welcome to Grocery Store</title>
+   </h:head>
+   <h:body>
+      <h1 style="background-color:yellow;font-family:'Arial';font-size:30px;text-align: center">Your order placed successfully at the Grocery Store...<br>Will keep you posted about delivery. Thank you for shopping with us!!!!</h1>
+   </h:body>
+</html>

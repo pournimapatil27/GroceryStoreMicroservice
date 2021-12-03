@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot App ID Sample</title>
+    <link type="text/css" href="css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+                beforeSend : function(xhr, settings) {
+                    if (settings.type == 'POST' || settings.type == 'PUT'
+                        || settings.type == 'DELETE') {
+                        if (!(/^http:.*/.test(settings.url) || /^https:.*/
+                            .test(settings.url))) {
+                            // Only send the token to relative URLs i.e. locally.
+                            xhr.setRequestHeader("X-XSRF-TOKEN",
+                                Cookies.get('XSRF-TOKEN'));
+                        }
+                    }
+                }
+            });
+        $.get("/user", function(data) {
+            $("#user").html(data.userAuthentication.details.name);
+            $("#userSub").html(data.userAuthentication.details.sub);
+            $("#userEmail").html(data.userAuthentication.details.email);
+            $("#provider").html(data.userAuthentication.details.identities[0].provider);
+            $(".unauthenticated").hide()
+            $(".authenticated").show()
+        }).fail(function() {
+            $(".unauthenticated").show()
+            $(".authenticated").hide()
+        });
+ 
+        $.get("/userInfo", function(data) {
+            $("#userInfoString").html(data);
+            $(".unauthenticated").hide()
+            $(".authenticated").show()
+        }).fail(function() {
+            $(".unauthenticated").show()
+            $(".authenticated").hide()
+        });
+ 
+        var logout = function() {
+            $.post("/logout", function() {
+                $("#user").html('');
+                $(".unauthenticated").show();
+                $(".authenticated").hide();
+            })
+            return true;
+        }
+        
+        function store() {
+            $.ajax({
+                url: '/generateOrderToken',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                	orderId:$("#orderId").val(),
+                	itemName:$("#itemName").val(),
+                	userName:$("#userEmail").text()
+                }),
+                dataType: 'json',
+            
+            success : function(data, textStatus, xmLHttpRequest){
+            	window.location.href = "store.html"
+            }
+            });
+            return true;
+        }
+
+    </script>
+ 
+</head>
+<div class="container unauthenticated" style="text-align: center;">
+    <a href="/login">Login</a>
+</div>
+<div class="container authenticated" style="text-align: center;" >
+	
+	<h1 style="background-color:powderblue;font-family:'Algerian';font-size:30px">
+	Welcome to Grocery Store</h1> 
+    <strong>Logged in as: <span id="user" style="text-align:left;"></span></strong> 
+     <button style="text-align:right;" onClick="logout()">Logout</button>
+    <br>
+    <br>
+    <!-- <br>
+    <strong>Sub: </strong><span id="userSub"></span>
+    <br>
+    <strong>Email: </strong><span id="userEmail"></span>
+    <br>
+    <strong>Provider: </strong><span id="provider"></span>
+    <br>
+    <br>
+    <strong>User Profile Information: </strong>
+    <br>
+    <span id="userInfoString"></span>
+    <br>
+    <br> -->
+   
+
+
+	<img src="./images/cofee.jpg" alt="BRU COFFEE">
+	<br>
+	<input type="button" id="Add To Cart"/>
+
+	<!-- <input type="text" id="orderId"/>
+	<input type="text" id="itemName"/> -->
+	<br>
+	<button onClick="store()">Place Order</button>
+    </div>
+
+
+ 
+   
+</div>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+   <h:head>
+      <title>Grocery Store</title>
+   </h:head>
+   <h:body>
+      <h2 style="color:red;font-family:'Arial';font-size:20px;text-align: center">Your session has been expired...!!!!</h2>
+      <h1 style="color:brown;font-family:'Arial';font-size:30px;text-align: center">Please login again to place your order</h1>
+      <h3 style="color:brown;font-family:'Arial';font-size:20px;text-align: center">Thank You for shopping with us</h3>
+   </h:body>
+</html>
